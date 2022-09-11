@@ -2233,7 +2233,7 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                     valid = False
                     pickIndex = 0
                     while(not valid):
-                        pick = bowlingDeath[pick]
+                        pick = bowlingDeath[pickIndex]
                         pickInfo = bowlerTracker[pick['playerInitials']]
                         if(pickInfo['balls'] == 0):
                             bowlerToReturn = pick

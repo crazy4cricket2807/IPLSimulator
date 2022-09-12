@@ -396,7 +396,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
             bowlInfo['bowlRunDenominationsObject']['4'] -= (effect * 0.38)
             bowlInfo['bowlRunDenominationsObject']['6'] -= (effect * 0.3)
         elif('medium' or 'fast' in bowler['bowlStyle']):
-            effect = (1.0 - fast)/2
+            effect = (1.0 - pace)/2
             # print("effect:", effect, "original:", fast)
             bowlInfo['bowlOutsRate'] += (effect * 0.25)
             bowlInfo['bowlRunDenominationsObject']['0'] += (effect * 0.25)
@@ -978,7 +978,6 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                                         valid = True
 
                 else:
-
                     if((bowlerDict['balls'] > 19)):
                         valid = False
                         loopIndex = 5
@@ -1433,7 +1432,7 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
             bowlInfo['bowlRunDenominationsObject']['4'] -= (effect * 0.4)
             bowlInfo['bowlRunDenominationsObject']['6'] -= (effect * 0.3)
         elif('medium' or 'fast' in bowler['bowlStyle']):
-            effect = (1.0 - fast)/2
+            effect = (1.0 - pace)/2
             # print("effect:", effect, "original:", fast)
             bowlInfo['bowlOutsRate'] += (effect * 0.22)
             bowlInfo['bowlRunDenominationsObject']['0'] += (effect * 0.18)

@@ -910,6 +910,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
             def middleOversPick(bowlerInp):
                 bowlerDict = bowlerTracker[bowlerInp['playerInitials']]
                 bowlerToReturn = bowlerInp
+                pickIndex = 0
 
                 def inDeathBowlers(bowlerToCheck):
                     if (bowlerToCheck['playerInitials'] == bowlingDeath[0]['playerInitials'] or
@@ -937,31 +938,33 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                             expIndex += 1
 
                         while (not valid):
-                            pick = bowlingMiddle[random.randint(
-                                0, 5)]
+                            pick = bowlingMiddle[pickIndex]
                             pickInfo = bowlerTracker[pick['playerInitials']]
-                            if (pickInfo['balls'] == 0):
-                                bowlerToReturn = pick
-                                valid = True
-                            else:
-                                if (inDeathBowlers(pickInfo)):
-                                    if (pickInfo['balls'] < 11 and (pickInfo['runs'] / pickInfo['balls']) < 1.5):
-                                        if (pickInfo['playerInitials'] != lastOver):
-                                            bowlerToReturn = pick
-                                            valid = True
-                                    elif (pickInfo['balls'] < 11 and pickInfo['runs'] / pickInfo['balls'] > 0.088):
-                                        if (pickInfo['playerInitials'] != lastOver):
-                                            bowlerToReturn = pick
-                                            valid = True
+                            if (pickInfo['playerInitials'] != lastOver):
+                                if (pickInfo['balls'] == 0):
+                                    bowlerToReturn = pick
+                                    valid = True
                                 else:
-                                    if (pickInfo['balls'] < 24 and (pickInfo['runs'] / pickInfo['balls']) < 1.5):
-                                        if (pickInfo['playerInitials'] != lastOver):
-                                            bowlerToReturn = pick
-                                            valid = True
-                                    elif (pickInfo['balls'] < 11 and pickInfo['runs'] / pickInfo['balls'] > 0.088):
-                                        if (pickInfo['playerInitials'] != lastOver):
-                                            bowlerToReturn = pick
-                                            valid = True
+                                    if (inDeathBowlers(pickInfo)):
+                                        if (pickInfo['balls'] < 11 and (pickInfo['runs'] / pickInfo['balls']) < 1.5):
+                                            if (pickInfo['playerInitials'] != lastOver):
+                                                bowlerToReturn = pick
+                                                valid = True
+                                        elif (pickInfo['balls'] < 11 and pickInfo['runs'] / pickInfo['balls'] > 0.088):
+                                            if (pickInfo['playerInitials'] != lastOver):
+                                                bowlerToReturn = pick
+                                                valid = True
+                                    else:
+                                        if (pickInfo['balls'] < 24 and (pickInfo['runs'] / pickInfo['balls']) < 1.5):
+                                            if (pickInfo['playerInitials'] != lastOver):
+                                                bowlerToReturn = pick
+                                                valid = True
+                                        elif (pickInfo['balls'] < 11 and pickInfo['runs'] / pickInfo['balls'] > 0.088):
+                                            if (pickInfo['playerInitials'] != lastOver):
+                                                bowlerToReturn = pick
+                                                valid = True
+                            else:
+                                pickIndex += 1
                             loopIndex += 1
                             if (loopIndex >= 5):
                                 for i2 in range(6):
@@ -2027,7 +2030,6 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                     if (bowlerDict['balls'] > 17):
                         valid = False  # continue this
                         localBowling = bowlingOpening
-                        localBowling.reverse()
                         while (not valid):
                             pick = localBowling[random.randint(0, 5)]
                             pickInfo = bowlerTracker[pick['playerInitials']]
@@ -2088,6 +2090,7 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                             valid = False
                             loopIndex = 5
                             playersExp = bowlingMiddle
+                            pickIndex = 0
 
                             # print(playersExp)
                             expIndex = 0
@@ -2102,40 +2105,42 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                                 expIndex += 1
 
                             while (not valid):
-                                pick = bowlingMiddle[random.randint(
-                                    0, 5)]
+                                pick = bowlingMiddle[pickIndex]
                                 pickInfo = bowlerTracker[pick['playerInitials']]
-                                if (pickInfo['balls'] == 0):
-                                    bowlerToReturn = pick
-                                    valid = True
-                                else:
-                                    if (inDeathBowlers(pickInfo)):
-                                        if (pickInfo['balls'] < 11):
-                                            if (pickInfo['playerInitials'] != lastOver):
-                                                bowlerToReturn = pick
-                                                valid = True
-                                        elif (pickInfo['balls'] < 11):
-                                            if (pickInfo['playerInitials'] != lastOver):
-                                                bowlerToReturn = pick
-                                                valid = True
+                                if (pickInfo['playerInitials'] != lastOver):
+                                    if (pickInfo['balls'] == 0):
+                                        bowlerToReturn = pick
+                                        valid = True
                                     else:
-                                        if (pickInfo['balls'] < 24):
-                                            if (pickInfo['playerInitials'] != lastOver):
-                                                bowlerToReturn = pick
+                                        if (inDeathBowlers(pickInfo)):
+                                            if (pickInfo['balls'] < 11):
+                                                if (pickInfo['playerInitials'] != lastOver):
+                                                    bowlerToReturn = pick
+                                                    valid = True
+                                            elif (pickInfo['balls'] < 11):
+                                                if (pickInfo['playerInitials'] != lastOver):
+                                                    bowlerToReturn = pick
+                                                    valid = True
+                                        else:
+                                            if (pickInfo['balls'] < 24):
+                                                if (pickInfo['playerInitials'] != lastOver):
+                                                    bowlerToReturn = pick
+                                                    valid = True
+                                            elif (pickInfo['balls'] < 11):
+                                                if (pickInfo['playerInitials'] != lastOver):
+                                                    bowlerToReturn = pick
+                                                    valid = True
+                                    loopIndex += 1
+                                    if (loopIndex >= 5):
+                                        for i2 in range(6):
+                                            picked_ = bowlingMiddle[i2]
+                                            picked_info = bowlerTracker[picked_[
+                                                'playerInitials']]
+                                            if (not inDeathBowlers(picked_) and picked_['playerInitials'] != lastOver):
+                                                bowlerToReturn = picked_
                                                 valid = True
-                                        elif (pickInfo['balls'] < 11):
-                                            if (pickInfo['playerInitials'] != lastOver):
-                                                bowlerToReturn = pick
-                                                valid = True
-                                loopIndex += 1
-                                if (loopIndex >= 5):
-                                    for i2 in range(6):
-                                        picked_ = bowlingMiddle[i2]
-                                        picked_info = bowlerTracker[picked_[
-                                            'playerInitials']]
-                                        if (not inDeathBowlers(picked_) and picked_['playerInitials'] != lastOver):
-                                            bowlerToReturn = picked_
-                                            valid = True
+                                else:
+                                    pickIndex += 1
 
                 else:
                     if (bowlerDict['balls'] > 19):

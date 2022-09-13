@@ -868,8 +868,8 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
 
                 valid = False
 
-                while(not valid):
-                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1.5 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
+                while (not valid):
+                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
                         valid = True
                     else:
                         valid = False  # continue this
@@ -878,7 +878,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                         pick = localBowling[pickIndex % 6]
                         pickInfo = bowlerTracker[pick['playerInitials']]
                         if (pickInfo['balls'] < 23):
-                            if pickInfo['balls']  == 0:
+                            if pickInfo['balls'] == 0:
                                 bowlerToReturn = pick
                                 valid = True
                             elif (pickIndex > 5):
@@ -896,7 +896,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                             else:
                                 pickIndex += 1
                         else:
-                            pickIndex += 1
+                            pickIndex += 1 
                 print("\n")
 
                 if bowlerTracker[bowlerToReturn['playerInitials']]['balls'] == 0:
@@ -940,27 +940,33 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                         return True
                     else:
                         return False
+                if(inDeathBowlers(bowlerInp) and bowlerDict['balls'] == 0):
+                    bowlerToReturn = bowlerInp
+                elif (inDeathBowlers(bowlerInp) and bowlerInp['playerInitials'] != lastOver and bowlerDict['balls'] < 24 and (bowlerDict['wickets']/bowlerDict['balls'] > 0.08 or bowlerDict['runs']/bowlerDict['balls'] < 1.5)):
+                    bowlerToReturn = bowlerInp
+                else:
+                    valid = False
+                    pickIndex = 0
 
-                if (inDeathBowlers(bowlerInp)):
-                    if (bowlerDict['balls'] > 19):
-                        valid = False
-                        pickIndex = 0
-                        while (not valid):
-                            pick = bowlingMiddle[pickIndex]
-                            pickInfo = bowlerTracker[pick['playerInitials']]
-                            if (pickInfo['playerInitials'] != lastOver):
-                                if (pickInfo['balls'] == 0):
-                                    bowlerToReturn = pick
+                    while (not valid):
+                        currBowler = bowlingMiddle[pickIndex % 6]
+                        currBowlerInfo = bowlerTracker[currBowler['playerInitials']]
+                        if (pickIndex > 5 and currBowlerInfo['balls'] < 24 and currBowler['playerInitials'] != lastOver):
+                            valid = True
+                            bowlerToReturn = currBowler
+                        else:
+                            if(currBowler['playerInitials'] != lastOver and currBowlerInfo['balls'] == 0):
+                                valid = True
+                                bowlerToReturn = currBowler
+                            elif (currBowler['playerInitials'] != lastOver and currBowlerInfo['balls'] < 24):
+                                if currBowlerInfo['balls'] == 0:
                                     valid = True
+                                    bowlerToReturn = currBowler
+                                elif (currBowlerInfo['runs']/currBowlerInfo['balls'] < 1.5 or currBowlerInfo['wickets']/currBowlerInfo['balls'] > 0.08):
+                                    valid = True
+                                    bowlerToReturn = currBowler
                                 else:
-                                    if (inDeathBowlers(pickInfo)):
-                                        if (pickInfo['balls'] < 24 and (pickInfo['runs'] / pickInfo['balls']) < 1.5):
-                                            bowlerToReturn = pick
-                                            valid = True
-                                        else:
-                                            pickIndex += 1
-                                    else:
-                                        pickIndex += 1
+                                    pickIndex += 1
                             else:
                                 pickIndex += 1
 
@@ -1972,8 +1978,8 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                 valid = False
                 pickIndex = 0
 
-                while(not valid):
-                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1.5 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
+                while (not valid):
+                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
                         valid = True
                     else:
                         valid = False  # continue this
@@ -1982,7 +1988,7 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                         pick = localBowling[pickIndex % 6]
                         pickInfo = bowlerTracker[pick['playerInitials']]
                         if (pickInfo['balls'] < 23):
-                            if pickInfo['balls']  == 0:
+                            if pickInfo['balls'] == 0:
                                 bowlerToReturn = pick
                                 valid = True
                             elif (pickIndex > 5):
@@ -2047,27 +2053,34 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                         return True
                     else:
                         return False
+                
+                if(inDeathBowlers(bowlerInp) and bowlerDict['balls'] == 0):
+                    bowlerToReturn = bowlerInp
+                elif (inDeathBowlers(bowlerInp) and bowlerInp['playerInitials'] != lastOver and bowlerDict['balls'] < 24 and (bowlerDict['wickets']/bowlerDict['balls'] > 0.08 or bowlerDict['runs']/bowlerDict['balls'] < 1.5)):
+                    bowlerToReturn = bowlerInp
+                else:
+                    valid = False
+                    pickIndex = 0
 
-                if (inDeathBowlers(bowlerInp)):
-                    if (bowlerDict['balls'] > 19):
-                        valid = False
-                        pickIndex = 0
-                        while (not valid):
-                            pick = bowlingMiddle[pickIndex]
-                            pickInfo = bowlerTracker[pick['playerInitials']]
-                            if (pickInfo['playerInitials'] != lastOver):
-                                if (pickInfo['balls'] == 0):
-                                    bowlerToReturn = pick
+                    while (not valid):
+                        currBowler = bowlingMiddle[pickIndex % 6]
+                        currBowlerInfo = bowlerTracker[currBowler['playerInitials']]
+                        if (pickIndex > 5 and currBowlerInfo['balls'] < 24 and currBowler['playerInitials'] != lastOver):
+                            valid = True
+                            bowlerToReturn = currBowler
+                        else:
+                            if(currBowler['playerInitials'] != lastOver and currBowlerInfo['balls'] == 0):
+                                valid = True
+                                bowlerToReturn = currBowler
+                            elif (currBowler['playerInitials'] != lastOver and currBowlerInfo['balls'] < 24):
+                                if currBowlerInfo['balls'] == 0:
                                     valid = True
+                                    bowlerToReturn = currBowler
+                                elif (currBowlerInfo['runs']/currBowlerInfo['balls'] < 1.5 or currBowlerInfo['wickets']/currBowlerInfo['balls'] > 0.08):
+                                    valid = True
+                                    bowlerToReturn = currBowler
                                 else:
-                                    if (inDeathBowlers(pickInfo)):
-                                        if (pickInfo['balls'] < 24):
-                                            bowlerToReturn = pick
-                                            valid = True
-                                        else:
-                                            pickIndex += 1
-                                    else:
-                                        pickIndex += 1
+                                    pickIndex += 1
                             else:
                                 pickIndex += 1
                 print("\n")

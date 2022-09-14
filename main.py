@@ -1030,7 +1030,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                                 valid = True
                                 bowlerToReturn = currBowler
                             elif (currBowler['playerInitials'] != lastOver and currBowlerInfo['balls'] < 24):
-                                if currBowlerInfo['balls'] == 0:
+                                if currBowlerInfo['balls'] == 0 or currBowlerInfo['balls'] < 12:
                                     valid = True
                                     bowlerToReturn = currBowler
                                 elif (currBowlerInfo['runs']/currBowlerInfo['balls'] < 1.5 or currBowlerInfo['wickets']/currBowlerInfo['balls'] > 0.08):
@@ -2145,7 +2145,7 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                                 valid = True
                                 bowlerToReturn = currBowler
                             elif (currBowler['playerInitials'] != lastOver and currBowlerInfo['balls'] < 24):
-                                if currBowlerInfo['balls'] == 0:
+                                if currBowlerInfo['balls'] == 0 or currBowlerInfo['balls'] < 12:
                                     valid = True
                                     bowlerToReturn = currBowler
                                 elif (currBowlerInfo['runs']/currBowlerInfo['balls'] < 1.5 or currBowlerInfo['wickets']/currBowlerInfo['balls'] > 0.08):

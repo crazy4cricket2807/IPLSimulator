@@ -869,7 +869,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                 valid = False
 
                 while (not valid):
-                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1.5 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
+                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
                         valid = True
                     else:
                         valid = False  # continue this
@@ -1978,7 +1978,7 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                 pickIndex = 0
 
                 while (not valid):
-                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1.5 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
+                    if ((bowlerDict['runs'] / bowlerDict['balls']) < 1 or bowlerDict['wickets']/bowlerDict['balls'] > 0.08):
                         valid = True
                     else:
                         valid = False  # continue this
